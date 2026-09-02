@@ -1,0 +1,4 @@
+interface:
+  display_name: "可追溯选题生成"
+  short_description: "完整阅读高表现素材，保留公共母题并逐条审计素材去向"
+  default_prompt: "使用 $topic-generation-workflow 完整阅读这批素材，保留可复用的公共母题，区分商业承接并逐条审计去向。"

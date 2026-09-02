@@ -1,0 +1,4 @@
+interface:
+  display_name: "写作偏好学习"
+  short_description: "对比用户改稿，沉淀证据并维护候选、当前与停用写作偏好"
+  default_prompt: "使用 $writing-preference-learning 对比这次 AI 初稿和用户编辑稿，更新改稿证据与候选写作偏好。"

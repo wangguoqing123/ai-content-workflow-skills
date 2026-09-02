@@ -1,12 +1,13 @@
 # AI 内容工作流 Skills
 
-一套面向内容创作者的通用 Codex Skills，覆盖三个彼此独立、又能组合使用的环节：
+一套面向内容创作者的通用 Codex Skills，覆盖四个彼此独立、又能组合使用的环节：
 
 1. 从高表现素材中总结有证据边界的候选规律。
 2. 从指定素材生成可追溯的候选选题。
-3. 从 AI 初稿与用户编辑稿的差异中学习写作偏好。
+3. 围绕已确认选题，通过直接生成或口喷共创完成正文。
+4. 从 AI 初稿与用户编辑稿的差异中学习写作偏好。
 
-这三个 Skill 不包含特定账号的定位、经历、案例、产品、素材或数据。项目中的数字目录只作为兼容示例；目录结构不同，也会优先按用户指定路径和文件语义适配。
+这四个 Skill 不包含特定账号的定位、经历、案例、产品、素材或数据。项目中的数字目录只作为兼容示例；目录结构不同，也会优先按用户指定路径和文件语义适配。
 
 ## 包含的 Skills
 
@@ -14,21 +15,23 @@
 | --- | --- | --- |
 | `viral-pattern-analysis` | 总结爆款规律、更新标题／开头／正文结构规律库 | 不采集素材、不生成选题、不写正文 |
 | `topic-generation-workflow` | 根据新素材生成选题、补漏选题、重新审计选题 | 不总结爆款因果、不生成正文、不发布 |
+| `content-production-workflow` | 生成正文素材包、直接生成、口喷共创、初稿审核 | 不生成选题、不学习改稿偏好、不发布 |
 | `writing-preference-learning` | 学习这次改稿、维护候选／当前／停用写作偏好 | 不自动学习普通改稿、不润色正文 |
 
-三个 Skill 分开封装，是为了避免任务混在一起：规律总结只负责证据归纳，选题生成只负责候选题，偏好学习只在用户明确触发时回流。
+四个 Skill 分开封装，是为了避免任务混在一起：规律总结只负责证据归纳，选题生成只负责候选题，正文生产负责素材包、直接生成与口喷共创，偏好学习只在用户明确触发时回流。
 
 ## 推荐安装方式
 
 把下面这段话复制给 Codex：
 
 ```text
-请使用 $skill-installer，从下面的 GitHub 仓库安装三个 Skill：
+请使用 $skill-installer，从下面的 GitHub 仓库安装全部四个 Skill：
 https://github.com/wangguoqing123/ai-content-workflow-skills
 
 需要安装的目录：
 - skills/viral-pattern-analysis
 - skills/topic-generation-workflow
+- skills/content-production-workflow
 - skills/writing-preference-learning
 ```
 
@@ -46,6 +49,7 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
   --path \
     skills/viral-pattern-analysis \
     skills/topic-generation-workflow \
+    skills/content-production-workflow \
     skills/writing-preference-learning
 ```
 
@@ -87,7 +91,30 @@ Windows 用户的默认目录通常是 `%USERPROFILE%\.codex\skills\`。
 
 可以直接提供素材目录、文件清单或批次。如果没有索引，Skill 会在当前工作区内按语义适配，不会跨项目寻找资料。
 
-### 3. 学习这次改稿
+### 3. 生成正文或开始口喷
+
+先准备正文素材包：
+
+```text
+使用 $content-production-workflow，围绕这个已确认选题生成正文素材包。
+```
+
+材料足够时直接生成：
+
+```text
+使用 $content-production-workflow，根据当前素材包生成视频口播／社交平台正文／长文。
+```
+
+材料不足时进入口喷共创：
+
+```text
+使用 $content-production-workflow 开始口喷。
+请先告诉我这篇内容最缺什么，然后一次只问我一个问题。
+```
+
+口喷原文会逐字保存；AI 只在原文之后另做提炼，不会把外部观点或 AI 建议写成用户自己的经历。正文生成后会同时保留 AI 初稿、审核报告和用户编辑稿。
+
+### 4. 学习这次改稿
 
 ```text
 使用 $writing-preference-learning，对比这篇 AI 初稿和我的编辑稿，
@@ -102,11 +129,12 @@ Windows 用户的默认目录通常是 `%USERPROFILE%\.codex\skills\`。
 高表现素材
   → $viral-pattern-analysis 总结候选规律
   → $topic-generation-workflow 生成候选选题
-  → 完成正文并由用户修改
+  → $content-production-workflow 直接生成或口喷共创
+  → 用户修改编辑稿
   → $writing-preference-learning 学习本次改稿
 ```
 
-三个 Skill 可以单独使用，不要求必须按这个顺序运行。
+四个 Skill 可以单独使用，不要求必须按这个顺序运行。
 
 ## 使用前需要准备什么
 
@@ -119,6 +147,13 @@ Windows 用户的默认目录通常是 `%USERPROFILE%\.codex\skills\`。
 
 - 明确本轮需要处理的素材目录、文件清单或批次。
 - 如果有历史选题文件，放在同一工作区中，便于判断真正重复。
+
+### 正文生产与口喷共创
+
+- 一个已经确认的选题。
+- 目标平台或内容形式。
+- 与本题相关的来源、用户观点、经历、案例或方法；缺什么可以通过口喷补充。
+- 如果已有账号定位、写作偏好和产品资料，放在同一工作区即可，不要求固定目录名。
 
 ### 偏好学习
 
@@ -140,6 +175,7 @@ Windows 用户的默认目录通常是 `%USERPROFILE%\.codex\skills\`。
 skills/
 ├── viral-pattern-analysis/
 ├── topic-generation-workflow/
+├── content-production-workflow/
 └── writing-preference-learning/
 ```
 

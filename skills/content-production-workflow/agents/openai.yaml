@@ -1,0 +1,4 @@
+interface:
+  display_name: "内容生产与口喷共创"
+  short_description: "从选题素材包、口喷共创到正文初稿、审核与用户修改"
+  default_prompt: "使用 $content-production-workflow 围绕这个已确认选题准备素材包，并按材料情况直接生成或进入口喷共创。"
